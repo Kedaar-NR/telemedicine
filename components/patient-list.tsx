@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Star, Search, Filter } from "lucide-react";
+import { Star, Search, Filter } from "lucide-react";
 import { useState } from "react";
 
 const patients = [
@@ -150,23 +150,24 @@ export function PatientList({ onShowPatientProfile }: PatientListProps) {
                     <div className="text-sm text-gray-600">
                       {patient.strokeOnset}
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-xs text-green-600">
-                        {patient.lastSeen}
-                      </span>
+                    <div className="flex flex-col items-start space-y-1 w-full">
+                      {patient.lastSeen && (
+                        <span className="text-xs text-green-600 mb-1 block">
+                          {patient.lastSeen}
+                        </span>
+                      )}
                       <Button
                         variant="link"
                         size="sm"
                         className="text-blue-600 p-0"
                         onClick={() =>
-                          onShowPatientProfile &&
-                          onShowPatientProfile(patient.mrn)
+                          onShowPatientProfile
+                            ? onShowPatientProfile(patient.mrn)
+                            : undefined
                         }
+                        disabled={!onShowPatientProfile}
                       >
                         View More
-                      </Button>
-                      <Button variant="ghost" size="sm">
-                        <MoreHorizontal className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
