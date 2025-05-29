@@ -64,8 +64,36 @@ export const mockExerciseHistory = {
             lastAttempt: "2024-06-02T09:00:00Z",
             averageTime: 100,
         },
+        {
+            id: "ex6",
+            taskName: "Shoulder Flexion",
+            status: "active",
+            frequency: "weekly",
+            progress: 75,
+            lastAttempt: "2024-06-03T11:00:00Z",
+            averageTime: 110,
+        },
     ],
-    p3: [],
+    p3: [
+        {
+            id: "ex4",
+            taskName: "Balance Training",
+            status: "active",
+            frequency: "weekly",
+            progress: 70,
+            lastAttempt: "2024-06-03T10:00:00Z",
+            averageTime: 150,
+        },
+        {
+            id: "ex5",
+            taskName: "Hand Squeeze",
+            status: "inactive",
+            frequency: "daily",
+            progress: 40,
+            lastAttempt: "2024-05-30T09:00:00Z",
+            averageTime: 90,
+        },
+    ],
 }
 
 export const mockCalendarEvents = [

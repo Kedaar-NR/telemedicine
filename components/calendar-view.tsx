@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   ChevronLeft,
@@ -112,39 +111,9 @@ const todaySchedule = [
 
 export function Calendar() {
   return (
-    <div className="flex h-full bg-[#F6F7F9]">
-      <div className="w-64 bg-white border-r border-gray-200 flex flex-col p-4">
-        <div className="mb-4">
-          <Button variant="ghost" className="w-full flex justify-start mb-2">
-            My day
-          </Button>
-          <Button variant="ghost" className="w-full flex justify-start mb-2">
-            Next 7 days
-          </Button>
-          <Button variant="ghost" className="w-full flex justify-start mb-2">
-            All my tasks
-          </Button>
-          <Button variant="ghost" className="w-full flex justify-start mb-2">
-            My Calendar <Badge className="ml-2">New</Badge>
-          </Button>
-        </div>
-        <div className="mb-4">
-          <h3 className="text-sm font-semibold mb-2">My lists</h3>
-          <div className="flex items-center mb-2">
-            <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-            <span className="text-sm">Tasks</span>
-          </div>
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold mb-2">Tags</h3>
-          <Badge variant="secondary" className="text-xs">
-            #Priority
-          </Badge>
-        </div>
-      </div>
-
-      <div className="flex-1 p-8 overflow-auto">
-        <div className="flex items-center justify-between mb-6">
+    <div className="flex flex-col md:flex-row h-full bg-[#F6F7F9]">
+      <div className="flex-1 p-4 md:p-8 overflow-auto">
+        <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
           <div className="flex items-center space-x-2">
             <Button variant="ghost" size="icon">
               <Plus />
@@ -166,7 +135,7 @@ export function Calendar() {
             />
           </div>
         </div>
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-4 gap-4">
           <div className="flex items-center space-x-2">
             <Button variant="outline" size="sm">
               Today
@@ -194,71 +163,71 @@ export function Calendar() {
             </Button>
           </div>
         </div>
-        <div className="bg-white rounded-lg border border-gray-200">
-          <div className="grid grid-cols-8 border-b border-gray-200">
-            <div className="p-4 border-r border-gray-200"></div>
-            {days.map((day, index) => (
-              <div
-                key={index}
-                className="p-4 text-center border-r border-gray-200 last:border-r-0"
-              >
-                <div className="text-sm font-medium text-gray-900">
-                  {day.split(" ")[0]}
-                </div>
-                <div className="text-lg font-bold text-gray-900">
-                  {day.split(" ")[1]}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-8">
-            <div className="border-r border-gray-200">
-              {timeSlots.map((time, index) => (
+        <div className="bg-white rounded-lg border border-gray-200 overflow-x-auto">
+          <div className="min-w-[900px]">
+            <div className="grid grid-cols-8 border-b border-gray-200">
+              <div className="p-4 border-r border-gray-200"></div>
+              {days.map((day, index) => (
                 <div
                   key={index}
-                  className="h-16 p-2 border-b border-gray-200 text-sm text-gray-500"
+                  className="p-4 text-center border-r border-gray-200 last:border-r-0"
                 >
-                  {time}
+                  <div className="text-sm font-medium text-gray-900">
+                    {day.split(" ")[0]}
+                  </div>
+                  <div className="text-lg font-bold text-gray-900">
+                    {day.split(" ")[1]}
+                  </div>
                 </div>
               ))}
             </div>
-
-            {days.map((_, dayIndex) => (
-              <div
-                key={dayIndex}
-                className="border-r border-gray-200 last:border-r-0"
-              >
-                {timeSlots.map((_, slotIndex) => {
-                  const appointment = appointments.find(
-                    (apt) => apt.day === dayIndex && apt.slot === slotIndex
-                  );
-
-                  return (
-                    <div
-                      key={slotIndex}
-                      className="h-16 border-b border-gray-200 p-1"
-                    >
-                      {appointment && (
-                        <div
-                          className={`p-2 rounded text-xs ${appointment.color}`}
-                        >
-                          <div className="font-medium">{appointment.title}</div>
-                          <div className="text-xs opacity-75">
-                            {appointment.patient}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+            <div className="grid grid-cols-8 gap-x-4">
+              <div className="border-r border-gray-200">
+                {timeSlots.map((time, index) => (
+                  <div
+                    key={index}
+                    className="h-20 p-2 border-b border-gray-200 text-sm text-gray-500 flex items-center"
+                  >
+                    {time}
+                  </div>
+                ))}
               </div>
-            ))}
+              {days.map((_, dayIndex) => (
+                <div
+                  key={dayIndex}
+                  className="border-r border-gray-200 last:border-r-0 flex flex-col gap-y-4"
+                >
+                  {timeSlots.map((_, slotIndex) => {
+                    const appointment = appointments.find(
+                      (apt) => apt.day === dayIndex && apt.slot === slotIndex
+                    );
+                    return (
+                      <div
+                        key={slotIndex}
+                        className="h-20 border-b border-gray-200 p-1 flex items-center justify-center"
+                      >
+                        {appointment && (
+                          <div
+                            className={`p-3 rounded-lg text-xs font-medium shadow-sm ${appointment.color} w-full text-center whitespace-normal break-words`}
+                          >
+                            <div className="font-medium mb-1">
+                              {appointment.title}
+                            </div>
+                            <div className="text-xs opacity-75">
+                              {appointment.patient}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-
-      <div className="w-80 bg-white border-l border-gray-200 p-6 flex flex-col">
+      <div className="w-full md:w-80 bg-white border-l border-gray-200 p-6 flex flex-col">
         <div className="mb-6">
           <div className="text-center mb-4">
             <div className="text-2xl font-bold text-gray-900">January 2023</div>
@@ -295,7 +264,6 @@ export function Calendar() {
             })}
           </div>
         </div>
-
         <div>
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold">Today Schedule</h3>
@@ -339,3 +307,32 @@ export function Calendar() {
     </div>
   );
 }
+
+export const mockExerciseHistory = {
+  p1: [
+    // ...existing exercises...
+  ],
+  p2: [
+    // ...existing exercises...
+  ],
+  p3: [
+    {
+      id: "ex4",
+      taskName: "Balance Training",
+      status: "active",
+      frequency: "weekly",
+      progress: 70,
+      lastAttempt: "2024-06-03T10:00:00Z",
+      averageTime: 150,
+    },
+    {
+      id: "ex5",
+      taskName: "Hand Squeeze",
+      status: "inactive",
+      frequency: "daily",
+      progress: 40,
+      lastAttempt: "2024-05-30T09:00:00Z",
+      averageTime: 90,
+    },
+  ],
+};

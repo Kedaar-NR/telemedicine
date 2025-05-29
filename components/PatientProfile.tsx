@@ -65,10 +65,10 @@ export function PatientProfile({ patientId, onBack }: PatientProfileProps) {
             />
           </div>
         </div>
-        <div className="bg-white rounded-lg border border-gray-200 overflow-x-auto">
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-x-auto">
           <div className="min-w-[900px]">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <div className="grid grid-cols-7 gap-4 text-sm font-medium text-gray-500">
+            <div className="sticky top-0 z-10 bg-white rounded-t-2xl">
+              <div className="px-6 py-4 border-b border-gray-200 grid grid-cols-7 gap-4 text-sm font-semibold text-gray-700">
                 <div>Task</div>
                 <div>Status</div>
                 <div>Frequency</div>
@@ -78,16 +78,21 @@ export function PatientProfile({ patientId, onBack }: PatientProfileProps) {
                 <div>Action</div>
               </div>
             </div>
-            <div className="divide-y divide-gray-200">
+            <div className="divide-y divide-gray-100">
               {exercises.length === 0 ? (
                 <div className="text-center text-gray-500 py-12">
                   No exercises found.
                 </div>
               ) : (
-                exercises.map((ex) => (
+                exercises.map((ex, idx) => (
                   <div
                     key={ex.id}
-                    className="grid grid-cols-7 gap-4 items-center px-6 py-4 hover:bg-gray-50"
+                    className={`grid grid-cols-7 gap-4 items-center px-6 py-4 transition-colors ${
+                      idx % 2 === 0 ? "bg-gray-50" : "bg-white"
+                    } hover:bg-blue-50/60`}
+                    style={{
+                      borderRadius: idx === 0 ? "1rem 1rem 0 0" : undefined,
+                    }}
                   >
                     <div className="font-medium text-gray-900">
                       {ex.taskName}
@@ -107,7 +112,10 @@ export function PatientProfile({ patientId, onBack }: PatientProfileProps) {
                     </div>
                     <div className="text-gray-700">{ex.averageTime} sec</div>
                     <div className="flex flex-col min-w-[120px]">
-                      <Progress value={ex.progress} className="w-full h-2" />
+                      <Progress
+                        value={ex.progress}
+                        className="w-full h-2 rounded-full"
+                      />
                       <span className="text-xs text-gray-500 mt-1">
                         {ex.progress}%
                       </span>
