@@ -12,6 +12,10 @@ export default function Home() {
   const [selectedPatientId, setSelectedPatientId] = useState<string | null>(
     null
   );
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   // For Exercise History page: patient selector
   const handleSelectPatientForExercise = (patientId: string) => {
@@ -19,6 +23,17 @@ export default function Home() {
   };
   const handleBackToPatientSelector = () => {
     setSelectedPatientId(null);
+  };
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Mock login: accept any non-empty email/password
+    if (email && password) {
+      setLoggedIn(true);
+      setError("");
+    } else {
+      setError("Please enter email and password.");
+    }
   };
 
   const renderContent = () => {
@@ -57,6 +72,45 @@ export default function Home() {
         return <PatientList onShowPatientProfile={setSelectedPatientId} />;
     }
   };
+
+  if (!loggedIn) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
+        <form
+          onSubmit={handleLogin}
+          className="bg-white rounded-xl shadow-lg p-8 w-full max-w-sm flex flex-col gap-6"
+        >
+          <h2 className="text-2xl font-bold text-center mb-2">
+            Sign in to Dashboard
+          </h2>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            autoFocus
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          {error && (
+            <div className="text-red-500 text-sm text-center">{error}</div>
+          )}
+          <button
+            type="submit"
+            className="bg-blue-600 text-white rounded-md py-2 font-semibold hover:bg-blue-700 transition"
+          >
+            Sign In
+          </button>
+        </form>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen bg-gray-50">
