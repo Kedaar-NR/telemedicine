@@ -6,6 +6,7 @@ import { PatientList } from "@/components/patient-list";
 import { Calendar } from "@/components/calendar-view";
 import { PatientProfile } from "@/components/PatientProfile";
 import { mockPatients } from "@/lib/mockData";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const [activeView, setActiveView] = useState("patient-list");
@@ -44,19 +45,35 @@ export default function Home() {
         if (!selectedPatientId) {
           return (
             <div className="p-8">
-              <h2 className="text-2xl font-bold mb-4">Select a Patient</h2>
-              <ul className="space-y-2">
+              <h2 className="text-2xl font-bold mb-4">
+                Exercise History: Select a Patient
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {mockPatients.map((p) => (
-                  <li key={p.id}>
-                    <button
-                      className="text-blue-600 underline text-lg"
+                  <div
+                    key={p.id}
+                    className="bg-white rounded-xl shadow p-6 flex flex-col items-start border border-gray-200"
+                  >
+                    <div className="font-semibold text-lg mb-1">{p.name}</div>
+                    <div className="text-gray-500 text-sm mb-2">
+                      MRN: {p.mrn}
+                    </div>
+                    <div className="text-gray-500 text-sm mb-2">
+                      DOB: {p.dob}
+                    </div>
+                    <div className="text-gray-500 text-sm mb-4">
+                      Diagnosis: {p.diagnosis}
+                    </div>
+                    <Button
+                      variant="secondary"
                       onClick={() => handleSelectPatientForExercise(p.id)}
+                      className="mt-auto"
                     >
-                      {p.name}
-                    </button>
-                  </li>
+                      View Report
+                    </Button>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           );
         }
