@@ -2,49 +2,59 @@
 
 import { useState } from "react";
 import { Sidebar } from "@/components/sidebar";
-import { PatientDashboard } from "@/components/patient-dashboard";
 import { PatientList } from "@/components/patient-list";
 import { Calendar } from "@/components/calendar-view";
 import { PatientProfile } from "@/components/PatientProfile";
+import { mockPatients } from "@/lib/mockData";
 
 export default function Home() {
-  const [activeView, setActiveView] = useState("dashboard");
+  const [activeView, setActiveView] = useState("patient-list");
   const [selectedPatientId, setSelectedPatientId] = useState<string | null>(
     null
   );
 
-  const handleShowPatientProfile = (patientId: string) => {
+  // For Exercise History page: patient selector
+  const handleSelectPatientForExercise = (patientId: string) => {
     setSelectedPatientId(patientId);
-    setActiveView("patient-profile");
   };
-
-  const handleBackToList = () => {
+  const handleBackToPatientSelector = () => {
     setSelectedPatientId(null);
-    setActiveView("patient-list");
   };
 
   const renderContent = () => {
-    if (activeView === "patient-profile" && selectedPatientId) {
-      return (
-        <PatientProfile
-          patientId={selectedPatientId}
-          onBack={handleBackToList}
-        />
-      );
-    }
     switch (activeView) {
-      case "dashboard":
-        return (
-          <PatientDashboard onShowPatientProfile={handleShowPatientProfile} />
-        );
       case "patient-list":
-        return <PatientList onShowPatientProfile={handleShowPatientProfile} />;
+        return <PatientList onShowPatientProfile={setSelectedPatientId} />;
+      case "exercise-history":
+        if (!selectedPatientId) {
+          return (
+            <div className="p-8">
+              <h2 className="text-2xl font-bold mb-4">Select a Patient</h2>
+              <ul className="space-y-2">
+                {mockPatients.map((p) => (
+                  <li key={p.id}>
+                    <button
+                      className="text-blue-600 underline text-lg"
+                      onClick={() => handleSelectPatientForExercise(p.id)}
+                    >
+                      {p.name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        }
+        return (
+          <PatientProfile
+            patientId={selectedPatientId}
+            onBack={handleBackToPatientSelector}
+          />
+        );
       case "calendar":
         return <Calendar />;
       default:
-        return (
-          <PatientDashboard onShowPatientProfile={handleShowPatientProfile} />
-        );
+        return <PatientList onShowPatientProfile={setSelectedPatientId} />;
     }
   };
 
