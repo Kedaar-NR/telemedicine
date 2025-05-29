@@ -108,7 +108,7 @@ export function PatientProfile({ patientId, onBack }: PatientProfileProps) {
                     </div>
                     <div className="text-gray-700">{ex.frequency}</div>
                     <div className="text-green-600 font-semibold">
-                      {new Date(ex.lastAttempt).toLocaleDateString()}
+                      {new Date(ex.lastAttempt).toISOString().slice(0, 10)}
                     </div>
                     <div className="text-gray-700">{ex.averageTime} sec</div>
                     <div className="flex flex-col min-w-[120px]">
