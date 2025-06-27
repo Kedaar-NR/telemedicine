@@ -7,7 +7,7 @@ import { signIn } from "next-auth/react";
 
 export function SignInPage() {
   const [email, setEmail] = useState("doctor@reia.com");
-  const [password, setPassword] = useState("password");
+  const [password, setPassword] = useState("demo123");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -161,7 +161,7 @@ export function SignInPage() {
                 Demo credentials (pre-filled):
               </p>
               <p className="text-xs text-gray-400">
-                Email: doctor@reia.com • Password: password
+                Email: doctor@reia.com • Password: demo123
               </p>
             </div>
           </form>
