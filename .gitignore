@@ -44,3 +44,5 @@ next-env.d.ts
 *.swo
 
 node_modules
+
+/lib/generated/prisma
