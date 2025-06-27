@@ -62,18 +62,20 @@ export function ScheduleView({}: ScheduleViewProps) {
     date: Date;
     time: string;
   } | null>(null);
-  const [, setViewMode] = useState("Week");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [viewMode, setViewMode] = useState("Week");
 
-  const handleTimeSlotClick = (_dayIndex: number, _slotIndex: number) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleTimeSlotClick = (dayIndex: number, slotIndex: number) => {
     // Check if slot already has appointment
       const hasAppointment = appointments.find(
-        (apt) => apt.day === _dayIndex && apt.slot === _slotIndex + 1
+        (apt) => apt.day === dayIndex && apt.slot === slotIndex + 1
       );
 
       if (!hasAppointment) {
         // Calculate date and time for selected slot
-        const selectedDate = new Date(2025, 3, 14 + _dayIndex); // April 14 + dayIndex
-        const timeSlot = timeSlots[_slotIndex + 1];
+        const selectedDate = new Date(2025, 3, 14 + dayIndex); // April 14 + dayIndex
+        const timeSlot = timeSlots[slotIndex + 1];
 
         setSelectedSlot({ date: selectedDate, time: timeSlot });
         setShowBookingModal(true);

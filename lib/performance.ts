@@ -10,10 +10,10 @@ export function createLazyComponent<T extends React.ComponentType<any>>(
   const LazyComponent = React.lazy(factory);
   
   return function WrappedComponent(props: React.ComponentProps<T>) {
-    return (
-      <React.Suspense fallback={fallback ? React.createElement(fallback) : <div>Loading...</div>}>
-        <LazyComponent {...props} />
-      </React.Suspense>
+    return React.createElement(
+      React.Suspense,
+      { fallback: fallback ? React.createElement(fallback) : React.createElement('div', {}, 'Loading...') },
+      React.createElement(LazyComponent, props)
     );
   };
 }

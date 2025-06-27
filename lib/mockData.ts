@@ -357,7 +357,7 @@ export function getPatientProfile(patientId: string) {
 }
 
 export function getExerciseHistory(patientId: string) {
-    return mockExerciseHistory[patientId] || []
+    return (mockExerciseHistory as Record<string, any>)[patientId] || []
 }
 
 export function getTherapistCalendar(therapistId: string) {

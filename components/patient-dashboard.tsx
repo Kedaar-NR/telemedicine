@@ -156,7 +156,7 @@ export function PatientDashboard({
                       size="sm"
                       className="text-blue-600 p-0"
                       onClick={() =>
-                        onShowPatientProfile && onShowPatientProfile(patient.id)
+                        onShowPatientProfile && onShowPatientProfile(patient.id.toString())
                       }
                     >
                       View Details

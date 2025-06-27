@@ -68,7 +68,7 @@ function DefaultErrorFallback({ error, resetError }: ErrorFallbackProps) {
           </h1>
           
           <p className="text-gray-600 mb-6">
-            We're sorry, but something unexpected happened. Our team has been notified.
+            We&apos;re sorry, but something unexpected happened. Our team has been notified.
           </p>
           
           {process.env.NODE_ENV === 'development' && (
@@ -110,7 +110,7 @@ function DefaultErrorFallback({ error, resetError }: ErrorFallbackProps) {
 export function VideoMeetingErrorBoundary({ children }: { children: React.ReactNode }) {
   return (
     <ErrorBoundary
-      fallback={({ error, resetError }) => (
+      fallback={({ error: _, resetError }) => (
         <div className="fixed inset-0 bg-black flex items-center justify-center">
           <div className="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
             <AlertTriangle className="h-12 w-12 text-red-600 mx-auto mb-4" />
@@ -144,7 +144,7 @@ export function VideoMeetingErrorBoundary({ children }: { children: React.ReactN
 export function DashboardErrorBoundary({ children }: { children: React.ReactNode }) {
   return (
     <ErrorBoundary
-      fallback={({ error, resetError }) => (
+      fallback={({ error: _, resetError }) => (
         <div className="p-8 bg-gray-50 h-full flex items-center justify-center">
           <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 max-w-md text-center">
             <AlertTriangle className="h-12 w-12 text-amber-600 mx-auto mb-4" />
