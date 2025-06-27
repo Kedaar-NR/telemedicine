@@ -168,9 +168,9 @@ export function Dashboard() {
 
                   return (
                     <>
-                      <tr
-                        key={index}
-                        className={`${patient.borderColor} border-l-4 hover:bg-gray-50 cursor-pointer transition-colors`}
+                      <tr 
+                        key={index} 
+                        className={`${patient.borderColor} border-l-4 hover:bg-gray-50 cursor-pointer transition-all duration-200 hover:shadow-sm`}
                         onClick={() =>
                           setSelectedPatient(
                             selectedPatient === index ? null : index
