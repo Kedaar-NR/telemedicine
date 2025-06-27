@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Home, Calendar, LogOut } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
 interface HeaderProps {
   activeView: string;

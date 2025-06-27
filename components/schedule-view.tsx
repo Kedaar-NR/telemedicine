@@ -5,13 +5,11 @@ import {
   Calendar,
   Edit2,
   X,
-  User,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 import { useState } from "react";
 import { AppointmentBooking } from "@/components/appointment-booking";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ScheduleViewProps {}
 
 const timeSlots = [
@@ -64,22 +62,22 @@ export function ScheduleView({}: ScheduleViewProps) {
     date: Date;
     time: string;
   } | null>(null);
-  const [viewMode, setViewMode] = useState("Week");
+  const [, setViewMode] = useState("Week");
 
-  const handleTimeSlotClick = (dayIndex: number, slotIndex: number) => {
+  const handleTimeSlotClick = (_dayIndex: number, _slotIndex: number) => {
     // Check if slot already has appointment
-    const hasAppointment = appointments.find(
-      (apt) => apt.day === dayIndex && apt.slot === slotIndex + 1
-    );
+      const hasAppointment = appointments.find(
+        (apt) => apt.day === _dayIndex && apt.slot === _slotIndex + 1
+      );
 
-    if (!hasAppointment) {
-      // Calculate date and time for selected slot
-      const selectedDate = new Date(2025, 3, 14 + dayIndex); // April 14 + dayIndex
-      const timeSlot = timeSlots[slotIndex + 1];
+      if (!hasAppointment) {
+        // Calculate date and time for selected slot
+        const selectedDate = new Date(2025, 3, 14 + _dayIndex); // April 14 + dayIndex
+        const timeSlot = timeSlots[_slotIndex + 1];
 
-      setSelectedSlot({ date: selectedDate, time: timeSlot });
-      setShowBookingModal(true);
-    }
+        setSelectedSlot({ date: selectedDate, time: timeSlot });
+        setShowBookingModal(true);
+      }
   };
 
   const getAppointmentStyle = (type: string) => {

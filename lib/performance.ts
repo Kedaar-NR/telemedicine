@@ -1,3 +1,5 @@
+import React from 'react';
+
 // Performance optimization utilities for the telemedicine platform
 
 // Lazy loading utility for components
@@ -9,7 +11,7 @@ export function createLazyComponent<T extends React.ComponentType<any>>(
   
   return function WrappedComponent(props: React.ComponentProps<T>) {
     return (
-      <React.Suspense fallback={fallback ? <fallback /> : <div>Loading...</div>}>
+      <React.Suspense fallback={fallback ? React.createElement(fallback) : <div>Loading...</div>}>
         <LazyComponent {...props} />
       </React.Suspense>
     );
@@ -17,7 +19,7 @@ export function createLazyComponent<T extends React.ComponentType<any>>(
 }
 
 // Memoization wrapper for expensive calculations
-export function memoize<Args extends any[], Return>(
+export function memoize<Args extends unknown[], Return>(
   fn: (...args: Args) => Return
 ): (...args: Args) => Return {
   const cache = new Map();
@@ -36,7 +38,7 @@ export function memoize<Args extends any[], Return>(
 }
 
 // Debounce function for performance optimization
-export function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
   delay: number
 ): (...args: Parameters<T>) => void {
@@ -49,7 +51,7 @@ export function debounce<T extends (...args: any[]) => any>(
 }
 
 // Throttle function for rate limiting
-export function throttle<T extends (...args: any[]) => any>(
+export function throttle<T extends (...args: unknown[]) => unknown>(
   func: T,
   limit: number
 ): (...args: Parameters<T>) => void {
@@ -121,7 +123,7 @@ export function analyzeComponentSize(componentName: string) {
 // Memory usage monitoring
 export function monitorMemoryUsage() {
   if (typeof window !== 'undefined' && 'memory' in performance) {
-    const memory = (performance as any).memory;
+    const memory = (performance as unknown as { memory: any }).memory;
     
     return {
       used: Math.round(memory.usedJSHeapSize / 1048576), // MB
@@ -132,14 +134,6 @@ export function monitorMemoryUsage() {
   
   return null;
 }
-
-// Code splitting utility
-export const LazyComponents = {
-  VideoMeeting: React.lazy(() => import('@/components/video-meeting')),
-  AppointmentBooking: React.lazy(() => import('@/components/appointment-booking')),
-  PatientProfile: React.lazy(() => import('@/components/PatientProfile')),
-  CalendarView: React.lazy(() => import('@/components/calendar-view'))
-};
 
 // Critical resource hints
 export function addResourceHints() {
@@ -157,5 +151,3 @@ export function addResourceHints() {
     document.head.appendChild(link);
   });
 }
-
-import React from 'react';

@@ -6,7 +6,6 @@ import {
   Clock,
   X,
   Video,
-  Phone,
   MessageSquare,
 } from "lucide-react";
 import { useState } from "react";
@@ -132,7 +131,7 @@ export function Dashboard() {
             <div className="flex items-center space-x-3">
               <Calendar className="h-6 w-6 text-gray-600" />
               <h2 className="text-xl font-semibold text-gray-900">
-                Today's Patients | Mon, June 9, 2025
+                Today&apos;s Patients | Mon, June 9, 2025
               </h2>
             </div>
           </div>
@@ -146,7 +145,7 @@ export function Dashboard() {
                     Appt. Time
                   </th>
                   <th className="px-8 py-4 text-left text-sm font-medium text-gray-700">
-                    Patient's Name
+                    Patient&apos;s Name
                   </th>
                   <th className="px-8 py-4 text-left text-sm font-medium text-gray-700">
                     Gender
@@ -164,8 +163,6 @@ export function Dashboard() {
               </thead>
               <tbody className="bg-white">
                 {todaysPatients.map((patient, index) => {
-                  const isLast = index === todaysPatients.length - 1;
-
                   return (
                     <>
                       <tr 

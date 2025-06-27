@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Calendar, Clock, User, Video, Phone, MessageSquare, Plus } from "lucide-react";
+import { User, Video, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 
@@ -29,7 +29,7 @@ const patients = [
 ];
 
 export function AppointmentBooking({ isOpen, onClose, selectedDate, selectedTime }: AppointmentBookingProps) {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     patientId: "",
     date: selectedDate || new Date(),
