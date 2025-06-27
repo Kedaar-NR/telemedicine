@@ -1,65 +1,35 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Header } from "@/components/header";
-import { Dashboard } from "@/components/dashboard";
-import { ScheduleView } from "@/components/schedule-view";
-import { SignInPage } from "@/components/signin-page";
-import { useSession, signOut } from "next-auth/react";
+import { useState } from "react"
+import { useSession } from "next-auth/react"
+import { SignInPage } from "@/components/signin-page"
+import { Header } from "@/components/header"
+import { DashboardView } from "@/components/dashboard-view"
+import { ScheduleView } from "@/components/schedule-view"
 
 export default function Home() {
-  const { data: session, status } = useSession();
-  const [activeView, setActiveView] = useState("dashboard");
+  const { data: session, status } = useSession()
+  const [activeView, setActiveView] = useState<"dashboard" | "schedule">("dashboard")
 
   if (status === "loading") {
     return (
-      <div className="flex items-center justify-center h-screen">
-        Loading...
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-4xl font-bold text-gray-900 mb-2">REIA</div>
+          <div className="text-gray-600">Loading...</div>
+        </div>
       </div>
-    );
+    )
   }
+
   if (!session) {
-    return <SignInPage />;
+    return <SignInPage />
   }
-
-  const user = session.user
-    ? {
-        name: session.user.name || session.user.email?.split("@")[0] || "User",
-        initials: session.user.name
-          ? session.user.name
-              .split(" ")
-              .map((n) => n[0])
-              .join("")
-              .toUpperCase()
-          : session.user.email?.slice(0, 2).toUpperCase() || "YC",
-      }
-    : null;
-
-  const handleSignOut = () => {
-    signOut();
-    setActiveView("dashboard");
-  };
-
-  const renderContent = () => {
-    switch (activeView) {
-      case "dashboard":
-        return <Dashboard />;
-      case "schedule":
-        return <ScheduleView />;
-      default:
-        return <Dashboard />;
-    }
-  };
 
   return (
-    <div className="h-screen bg-gray-50 flex flex-col">
-      <Header
-        activeView={activeView}
-        setActiveView={setActiveView}
-        user={user}
-        onSignOut={handleSignOut}
-      />
-      <main className="flex-1 overflow-hidden">{renderContent()}</main>
+    <div className="min-h-screen bg-gray-50">
+      <Header activeView={activeView} onViewChange={setActiveView} />
+      {activeView === "dashboard" ? <DashboardView /> : <ScheduleView />}
     </div>
-  );
+  )
 }
