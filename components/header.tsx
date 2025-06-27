@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { Home, Calendar, LogOut } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
@@ -10,12 +11,12 @@ interface HeaderProps {
   onSignOut: () => void;
 }
 
-export function Header({
+const Header = React.memo<HeaderProps>(function Header({
   activeView,
   setActiveView,
   user,
   onSignOut,
-}: HeaderProps) {
+}) {
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   return (
@@ -107,4 +108,6 @@ export function Header({
       </div>
     </header>
   );
-}
+});
+
+export { Header };
