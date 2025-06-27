@@ -128,6 +128,11 @@ export function ScheduleView({}: ScheduleViewProps) {
 
           {/* Calendar Grid */}
           <div className="flex-1 overflow-auto">
+            {/* Mobile Calendar Message */}
+            <div className="lg:hidden p-8 text-center">
+              <p className="text-gray-600 mb-4">Calendar view is optimized for larger screens.</p>
+              <p className="text-sm text-gray-500">Please use a tablet or desktop for the best scheduling experience.</p>
+            </div>
             <div className="min-w-[1000px]">
               {/* Days header */}
               <div className="grid grid-cols-6 bg-gray-50">
