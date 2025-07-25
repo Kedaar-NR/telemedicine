@@ -1,1 +1,1 @@
-Run it like any other Next.js project and take a look!
+Take a look! Full project is private.
