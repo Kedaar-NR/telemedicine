@@ -1,1 +1,1 @@
-Take a look! Full project is private.
+Take a look! The full project is private.
